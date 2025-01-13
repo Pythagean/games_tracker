@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- 
+     -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Game Tracker</h1>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="showForm('session-form')">Add Session</div>
+            <div class="tab" onclick="showForm('game-form')">Add Game</div>
+            <div class="tab" onclick="showForm('user-form')">Add User</div>            
+        </div>
+
+        <!-- Session Form -->
+        <div class="form-container active" id="session-form">
+
+            <label for="session-game-title-label">Game Title
+                <select id="session-game-title" style="width: 100%">
+                </select>
+            </label>
+
+            <label for="session-platform">Platform
+                <input id="session-platform" type="text">
+            </label>
+
+            <label for="session-date">Date
+                <input type="date" id="session-date" placeholder="Enter date" />
+            </label>
+
+            <label for="session-start-time">Start Time
+                <input type="text" class="timepicker">
+            </label>
+
+            <!-- <label for="session-duration">Duration (in minutes)
+                <input type="number" id="session-duration" placeholder="Enter duration (in minutes)" />
+            </label> -->
+
+            <label for="session-duration">Duration (in minutes)
+                <select name="session-duration" id="session-duration" placeholder="Select a Duration">
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                    <option value="60">60</option>
+                    <option value="75">75 (1 hr, 15 mins)</option>
+                    <option value="90">90 (1 hr, 30 mins)</option>
+                    <option value="105">105 (1 hr, 45 mins)</option>
+                    <option value="120">120 (2 hrs)</option>
+                    <option value="135">135 (2 hrs, 15 mins)</option>
+                    <option value="150">150 (2 hrs, 30 mins)</option>
+                    <option value="165">165 (2 hrs, 45 mins)</option>
+                    <option value="180">180 (3 hrs)</option>
+                    <option value="195">195 (3 hrs, 15 mins)</option>
+                    <option value="210">210 (3 hrs, 30 mins)</option>
+                    <option value="225">225 (3 hrs, 45 mins)</option>
+                    <option value="240">240 (4 hrs)</option>
+                </select>
+            </label>
+
+            <label for="session-game-mode">Game Mode
+            <select name="session-game-mode" id="session-game-mode" placeholder="Select a Game Mode">
+                <option value="Singleplayer">Singleplayer</option>
+                <option value="Online Multiplayer">Online Multiplayer</option>
+                <option value="Local Multiplayer">Local Multiplayer</option>
+              </select>
+            </label>
+            
+            <label for="session-player-label">Played With
+                <select id="session-players" style="width: 100%" disabled multiple="multiple">
+                </select>
+            </label>
+
+            <label for="session-location">Location
+                <select name="session-location" id="session-location" placeholder="Select a Location">
+                    <option value="Beach">Beach</option>
+                    <option value="Bed">Bed</option>
+                    <option value="Bedroom">Bedroom</option>
+                    <option value="Bus / Bus Stop">Bus / Bus Stop</option>
+                    <option value="Computer Room">Computer Room</option>
+                    <option value="Conor & Nat's Place">Conor & Nat's Place</option>
+                    <option value="Conor's Room">Conor's Room</option>
+                    <option value="Freddie's Place">Freddie's Place</option>
+                    <option value="Lounge" selected>Lounge</option>
+                    <option value="Airbnb">Airbnb</option>
+                    <option value="Plane">Plane</option>
+                    <option value="Regan, Amy & Brayden's Place">Regan, Amy & Brayden's Place</option>
+                    <option value="Simone & Kyle's Place">Simone & Kyle's Place</option>
+                    <option value="Train / Train Station">Train / Train Station</option>
+                    <option value="Work">Work</option>
+                </select>
+            </label>
+
+            <label for="session-switch-mode">Switch Mode
+                <select name="session-switch-mode" id="session-switch-mode" placeholder="Select a Switch Mode" disabled>
+                    <option value="N/A">N/A</option>
+                    <option value="Docked">Docked</option>
+                    <option value="Handheld">Handheld</option>
+                    <option value="Undocked">Undocked</option>
+                  </select>
+                </label>
+
+            <button onclick="addSession()" class="add-button">Add Session</button>
+            <div id="session-response-message" class="message"></div>
+        </div>
+
+        <!-- User Form -->
+        <div class="form-container" id="user-form">
+            <input type="text" id="user-name" placeholder="Enter Name" />
+            <button onclick="addUser()" class="add-button">Add User</button>
+            <div id="user-response-message" class="message"></div>
+        </div>
+
+        <!-- Game Form -->
+        <div class="form-container" id="game-form">
+
+            <label for="game-title">Title</label>
+            <input type="text" id="game-title" placeholder="Enter a Title" />
+
+            <label for="game-platform">Platform</label>
+            <select name="platform" id="game-platform" placeholder="Platform">
+                <option value="PC">PC</option>
+                <option value="PS4">PS4</option>
+                <option value="Nintendo Switch">Nintendo Switch</option>
+                <option value="Xbox">Xbox</option>
+                <option value="Oculus Rift">Oculus Rift</option>
+                <option value="Retro Pi">Retro Pi</option>
+                <option value="Nintendo 64">Nintendo 64</option>
+                <option value="PS Vita">PS Vita</option>
+              </select>
+
+              <label for="game-genre">Genre</label>
+              <select name="genre" id="game-genre" placeholder="Genre">
+                <option value="N/A">N/A</option>
+                <option value="Action">Action</option>
+                <option value="Action-Adventure">Action-Adventure</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Brawler">Brawler</option>
+                <option value="Card Game">Card Game</option>
+                <option value="Compilation">Compilation</option>
+                <option value="Driving/Racing">Driving/Racing</option>
+                <option value="Dual-Joystick Shooter">Dual-Joystick Shooter</option>
+                <option value="Educational">Educational</option>
+                <option value="Fighting">Fighting</option>
+                <option value="First-Person Shooter">First-Person Shooter</option>
+                <option value="Fishing">Fishing</option>
+                <option value="Flight Simulator">Flight Simulator</option>
+                <option value="Football">Football</option>
+                <option value="Gambling">Gambling</option>
+                <option value="Golf">Golf</option>
+                <option value="Hockey">Hockey</option>
+                <option value="Light-Gun Shooter">Light-Gun Shooter</option>
+                <option value="Minigame Collection">Minigame Collection</option>
+                <option value="MMORPG">MMORPG</option>
+                <option value="MOBA">MOBA</option>
+                <option value="Music/Rhythm">Music/Rhythm</option>
+                <option value="Pinball">Pinball</option>
+                <option value="Platformer">Platformer</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="Real-Time Strategy">Real-Time Strategy</option>
+                <option value="Role-Playing">Role-Playing</option>
+                <option value="Shoot 'Em Up">Shoot 'Em Up</option>
+                <option value="Shooter">Shooter</option>
+                <option value="Simulation">Simulation</option>
+                <option value="Skateboarding">Skateboarding</option>
+                <option value="Snowboarding/Skiing">Snowboarding/Skiing</option>
+                <option value="Soccer">Soccer</option>
+                <option value="Sports">Sports</option>
+                <option value="Strategy">Strategy</option>
+                <option value="Surfing">Surfing</option>
+                <option value="Tennis">Tennis</option>
+                <option value="Text Adventure">Text Adventure</option>
+                <option value="Track & Field">Track & Field</option>
+                <option value="Trivia/Board Game">Trivia/Board Game</option>
+                <option value="Vehicular Combar">Vehicular Combar</option>
+                <option value="Wrestling">Wrestling</option>
+              </select>
+
+              <label for="game-theme">Theme</label>
+              <select name="theme" id="game-theme" placeholder="Theme">
+                <option value="N/A">N/A</option>
+                <option value="Abstract">Abstract</option>
+                <option value="Adult">Adult</option>
+                <option value="Alternate Historical">Alternate Historical</option>
+                <option value="Anime">Anime</option>
+                <option value="Aquatic">Aquatic</option>
+                <option value="Civil War">Civil War</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Comic Book">Comic Book</option>
+                <option value="Crime">Crime</option>
+                <option value="Cyberpunk">Cyberpunk</option>
+                <option value="Dating">Dating</option>
+                <option value="Egyptian">Egyptian</option>
+                <option value="Espionage">Espionage</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Game Show">Game Show</option>
+                <option value="Horror">Horror</option>
+                <option value="Management">Management</option>
+                <option value="Martial Arts">Martial Arts</option>
+                <option value="Mayan">Mayan</option>
+                <option value="Medieval">Medieval</option>
+                <option value="Modern Military">Modern Military</option>
+                <option value="Prehistoric">Prehistoric</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Steampunk">Steampunk</option>
+                <option value="Superhero">Superhero</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Western">Western</option>
+                <option value="World War I">World War I</option>
+                <option value="World War II">World War II</option>
+              </select>
+
+              <label for="game-franchise">Franchise</label>
+              <input type="text" id="game-franchise" placeholder="Franchise" />
+
+              <label for="game-developer">Developer</label>
+              <input type="text" id="game-developer" placeholder="Developer" />
+
+              <label for="game-publisher">Publisher</label>
+              <input type="text" id="game-publisher" placeholder="Publisher" />
+
+              <label for="game-release-date">Release Date</label>
+              <input type="date" id="game-release-date" placeholder="Release Date" />
+
+              <label for="game-metacritic-score">Metacritic Score</label>
+              <input type="number" id="game-metacritic-score" placeholder="Metacritic Score" min="0" max="100" />
+
+              <label for="game-multiplayer-style">Multiplayer Style</label>
+              <select name="multiplayer-style" id="game-multiplayer-style" placeholder="Multiplayer Style">
+                <option value="N/A">N/A</option>
+                <option value="Co-op">Co-op</option>
+                <option value="Competitive">Competitive</option>
+              </select>
+
+            <button onclick="addGame()" class="add-button">Add Game</button>
+            <div id="game-response-message" class="message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Show the relevant form when a tab is clicked
+        function showForm(formId) {
+            // Hide all forms
+            const forms = document.querySelectorAll('.form-container');
+            forms.forEach(form => form.classList.remove('active'));
+
+            // Remove 'active' class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show the clicked form
+            document.getElementById(formId).classList.add('active');
+
+            // Add 'active' class to clicked tab
+            const activeTab = Array.from(tabs).find(tab => tab.innerHTML.toLowerCase().includes(formId.split('-')[0]));
+            activeTab.classList.add('active');
+        }
+
+        // Function to add user
+        function addUser() {
+            var userName = document.getElementById('user-name').value;
+            var responseMessage = document.getElementById('user-response-message');
+
+            if (userName.trim() === '') {
+                responseMessage.innerHTML = 'Username is required!';
+                responseMessage.style.color = 'red';
+                return;
+            }
+
+            var data = JSON.stringify({ "name": userName });
+
+            fetch('http://localhost:5000/insert_user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: data,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    responseMessage.innerHTML = 'User added successfully!';
+                    responseMessage.style.color = 'green';
+                } else {
+                    responseMessage.innerHTML = 'Error: ' + data.error;
+                    responseMessage.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                responseMessage.innerHTML = 'Error: ' + error.message;
+                responseMessage.style.color = 'red';
+            });
+        }
+
+        // Function to add game
+        function addGame() {
+            var gameTitle = document.getElementById('game-title').value;
+            var gamePlatform = document.getElementById('game-platform').value;
+            var gameGenre = document.getElementById('game-genre').value;
+            var gameTheme = document.getElementById('game-theme').value;
+            var gameFranchise = document.getElementById('game-franchise').value;
+            var gameDeveloper = document.getElementById('game-developer').value;
+            var gamePublisher = document.getElementById('game-publisher').value;
+            var gameReleaseDate = document.getElementById('game-release-date').value;
+            var gameMetacriticScore = document.getElementById('game-metacritic-score').value;
+            var gameMultiplayerStyle = document.getElementById('game-multiplayer-style').value;
+
+            var responseMessage = document.getElementById('game-response-message');
+
+            if (gameTitle.trim() === '') {
+                responseMessage.innerHTML = 'Game Title is required!';
+                responseMessage.style.color = 'red';
+                return;
+            }
+
+            var data = JSON.stringify({ 
+                "title": gameTitle,
+                "platform": gamePlatform,
+                "genre": gameGenre,
+                "theme": gameTheme,
+                "franchise": gameFranchise,
+                "developer": gameDeveloper,
+                "publisher": gamePublisher,
+                "release_date": gameReleaseDate,
+                "metacritic_score": gameMetacriticScore,
+                "multiplayer_style": gameMultiplayerStyle,
+            });
+
+            fetch('http://localhost:5000/insert_game', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: data,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    responseMessage.innerHTML = 'Game added successfully!';
+                    responseMessage.style.color = 'green';
+                } else {
+                    responseMessage.innerHTML = 'Error: ' + data.error;
+                    responseMessage.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                responseMessage.innerHTML = 'Error: ' + error.message;
+                responseMessage.style.color = 'red';
+            });
+        }
+
+        // Function to add session
+        function addSession() {
+            var game = document.getElementById('session-game-title').value;
+            var duration = document.getElementById('session-duration').value;
+            var responseMessage = document.getElementById('session-response-message');
+
+            if (game.trim() === '' || duration.trim() === '') {
+                responseMessage.innerHTML = 'Both fields are required!';
+                responseMessage.style.color = 'red';
+                return;
+            }
+
+            var data = JSON.stringify({ "game": game, "duration": duration });
+
+            fetch('http://localhost:5000/add_session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: data,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    responseMessage.innerHTML = 'Session added successfully!';
+                    responseMessage.style.color = 'green';
+                } else {
+                    responseMessage.innerHTML = 'Error: ' + data.error;
+                    responseMessage.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                responseMessage.innerHTML = 'Error: ' + error.message;
+                responseMessage.style.color = 'red';
+            });
+        }
+
+        // Fetch games and populate the dropdown
+        function loadGames() {
+            fetch('http://localhost:5000/games', { method: 'GET' })
+            .then(response => response.json())
+            .then(data => {
+                const gameSelect = $('#session-game-title');
+
+            // Clear existing options
+            gameSelect.empty();
+            gameSelect.append('<option value="">Select a game</option>');
+
+            // Populate select with game options
+            data.forEach(game => {
+                gameSelect.append(new Option(game.title, game.game_id));
+            });
+
+            // Initialize Select2
+            gameSelect.select2({
+                placeholder: "Select or type a game",
+                allowClear: true,
+                closeOnSelect: true,
+                dropdownAutoWidth: true,
+                selectOnClose: true
+            });
+            })
+            .catch(error => {
+                console.error('Error fetching games:', error);
+                alert('Failed to load games. Please try again.');
+            });
+
+            // Focus search box when dropdown opens
+            $('#session-game-title').on('select2:open', function () {
+                document.querySelector('.select2-search__field').focus();
+            });
+        }
+
+        $('.select2').on('select2:open', function () {
+            // Focus on the search field of the opened select2
+            setTimeout(() => {
+                document.querySelector('.select2-search__field').focus();
+            }, 0);
+        });
+
+        // Function to load additional game details
+        function loadGameDetails(gameId) {
+            if (!gameId) return;
+
+            fetch(`http://localhost:5000/games/${gameId}`, { method: 'GET' }) // Assuming your API can return details of a specific game
+                .then(response => response.json())
+                .then(gameDetails => {
+                    // Update other fields with game details
+                    $('#session-platform').text(gameDetails.platform || 'N/A');
+                    $('#session-platform').val(gameDetails.platform || 'N/A');
+                })
+                .catch(error => {
+                    console.error('Error fetching game details:', error);
+                    alert('Failed to load game details. Please try again.');
+                });
+        }
+
+    // Fetch games and populate the dropdown
+    function loadPlayers() {
+            fetch('http://localhost:5000/players', { method: 'GET' })
+            .then(response => response.json())
+            .then(data => {
+                const playerSelect = $('#session-players');
+
+            // Clear existing options
+            playerSelect.empty();
+            playerSelect.append('<option></option>');
+
+            // Populate select with game options
+            data.forEach(player => {
+                playerSelect.append(new Option(player.name, player.player_id));
+            });
+
+            // Initialize Select2
+            playerSelect.select2({
+                placeholder: "Select or type a player",
+                allowClear: true,
+                closeOnSelect: false,
+                dropdownAutoWidth: true,
+                selectOnClose: false,
+                multiple: true,
+                disabled: true
+            });
+            })
+            .catch(error => {
+                console.error('Error fetching players:', error);
+                alert('Failed to load players. Please try again.');
+            });
+    }
+
+    $('.timepicker').timepicker({
+    timeFormat: 'h:mm p',
+    interval: 15,
+    defaultTime: '7:00',
+    startTime: '07:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true
+});
+
+    // Call loadGames when the page loads
+    //document.addEventListener('DOMContentLoaded', loadGames);
+    document.addEventListener('DOMContentLoaded', function () {
+        loadGames();
+        loadPlayers();
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('session-date').value = today;
+    });
+
+    $('#session-game-mode').on('change', function() {
+        var selectedGameMode = $(this).val();
+
+        // Check if the selected game mode is Online Multiplayer or Local Multiplayer
+        if (selectedGameMode === "Online Multiplayer" || selectedGameMode === "Local Multiplayer") {
+            // Enable the multiplayer options select
+            $('#session-players').prop('disabled', false).trigger('change');
+        } else {
+            // Disable the multiplayer options select if a different game mode is selected
+            $('#session-players').prop('disabled', true).val(null).trigger('change');
+        }
+    });
+
+    $('#session-platform').on('change', function() {
+        var selectedSession = $(this).val();
+
+        // Check if the selected game mode is Online Multiplayer or Local Multiplayer
+        if (selectedGameMode === "Nintendo Switch") {
+            // Enable the multiplayer options select
+            $('#session-switch-mode').prop('disabled', false).trigger('change');
+        } else {
+            // Disable the multiplayer options select if a different game mode is selected
+            $('#session-switch-mode').prop('disabled', true).val("N/A").trigger('change');
+        }
+    });
+
+    // $('#session-game-title').on('change', function() {
+    //     var selectedGameId = $(this).val();
+
+    //     loadGameDetails(selectedGameId);
+    // });
+
+    </script>
+
+</body>
+</html>
