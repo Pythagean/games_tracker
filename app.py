@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory, render_template
 import psycopg2
 import logging
+import requests
 from psycopg2 import sql
 import os
 
@@ -87,7 +88,7 @@ def get_game_details(game_id):
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
-@app.route('/insert_user', methods=['POST'])
+@app.route('/users', methods=['POST'])
 def insert_user():
     try:
         # Ensure the request contains JSON
@@ -111,7 +112,7 @@ def insert_user():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 		
-@app.route('/insert_game', methods=['POST'])
+@app.route('/games', methods=['POST'])
 def insert_game():
     try:
         # Ensure the request contains JSON
@@ -139,6 +140,101 @@ def insert_game():
         return jsonify({"status": "success", "message": "Game added"}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/sessions', methods=['POST'])
+def insert_session():
+    try:
+        # Ensure the request contains JSON
+        data = request.get_json()
+        logging.debug(f"Received data: {data}")  # Log the received data
+
+        gameId = data['gameId']
+        platform = data['platform']
+        startDate = data['startDate']
+        startTime = data['startTime']
+        duration = data['duration']
+        location = data['location']
+        switchMode = data['switchMode']
+        gameMode = data['gameMode']
+
+        with conn.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO sessions 
+                (game_id, platform, start_date, start_time, duration, location, switch_mode, game_mode) 
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s) 
+                RETURNING session_id
+                """,
+                (gameId, platform, startDate, startTime, duration, location, switchMode, gameMode,)
+            )
+
+            # Get the inserted session ID
+            session_id = cursor.fetchone()[0]
+
+            # Prepare data for insertion
+            players = data['players']
+            insert_values = [(session_id, player_id) for player_id in players]
+        
+            cursor.executemany(
+                "INSERT INTO session_players (session_id, player_id) VALUES (%s, %s)",
+                insert_values
+            )
+            conn.commit()
+
+        return jsonify({"status": "success", "message": "Session added"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+API_KEY = '695fc51cfe9223919cc00f148f4301a0f2caf9bf'
+SEARCH_BASE_URL = "https://www.giantbomb.com/api/search/"
+GAME_BASE_URL = "https://www.giantbomb.com/api/game"
+
+@app.route('/gb/search', methods=['GET'])
+def gb_search():
+    # Forward the GET request to the external API
+    try:
+        # Get query parameters from the request
+        params = request.args.to_dict()
+        params['api_key'] = API_KEY
+
+        headers = {
+            'User-Agent': 'Pythagean'
+        }
+        
+        # Make the request to the external API
+        response = requests.get(f"{SEARCH_BASE_URL}", params=params, headers=headers)  # Modify the path as needed
+
+        # Check if the response is successful
+        if response.status_code == 200:
+            return jsonify(response.json())  # Return the response from the external API
+        else:
+            return jsonify({"error": "Failed to fetch data from external API"}), response.status_code
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/gb/game/<int:gb_game_id>', methods=['GET'])
+def gb_details(gb_game_id):
+    # Forward the GET request to the external API
+    try:
+        # Get query parameters from the request
+        params = request.args.to_dict()
+        params['api_key'] = API_KEY
+
+        headers = {
+            'User-Agent': 'Pythagean'
+        }
+        
+        # Make the request to the external API
+        response = requests.get(f"{GAME_BASE_URL}/{gb_game_id}", params=params, headers=headers)  # Modify the path as needed
+
+        # Check if the response is successful
+        if response.status_code == 200:
+            return jsonify(response.json())  # Return the response from the external API
+        else:
+            return jsonify({"error": "Failed to fetch data from external API"}), response.status_code
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

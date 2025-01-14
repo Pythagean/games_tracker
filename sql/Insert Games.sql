@@ -1,0 +1,1 @@
+INSERT INTO games (title, platform, genre, theme, franchise, developer, publisher, release_date, metacritic_score, multiplayer_style) VALUES ('Stardew Valley', 'PC', 'Role-Playing', 'Fantasy', 'N/A', 'ConcernedApe', 'Chucklefish Games', '26/02/2016', '89', 'Co-op');
