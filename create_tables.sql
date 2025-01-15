@@ -8,6 +8,8 @@ CREATE TABLE games (
 	developer VARCHAR(250) NOT NULL,
 	publisher VARCHAR(250) NOT NULL,
 	release_date DATE NOT NULL,
+	first_played DATE NOT NULL,
+	last_played DATE NOT NULL,
 	metacritic_score INTEGER NOT NULL,
 	multiplayer_style VARCHAR(50) NOT NULL
 );
@@ -26,6 +28,7 @@ CREATE TABLE sessions (
 	duration INTEGER NOT NULL,
     location VARCHAR(250),
     switch_mode VARCHAR(50),
+	played_with VARCHAR(250),
     game_mode VARCHAR(50),
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE
 );

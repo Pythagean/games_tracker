@@ -8,6 +8,8 @@ CREATE TABLE games (
 	developer VARCHAR(250) NOT NULL,
 	publisher VARCHAR(250) NOT NULL,
 	release_date DATE NOT NULL,
+	first_played DATE NOT NULL,
+	last_played DATE NOT NULL,
 	metacritic_score INTEGER NOT NULL,
 	multiplayer_style VARCHAR(50) NOT NULL
 );
@@ -17,15 +19,6 @@ CREATE TABLE players (
     name VARCHAR(250) NOT NULL
 );
 
-CREATE TABLE genres (
-    genre_id SERIAL PRIMARY KEY,
-    genre VARCHAR(250) NOT NULL
-);
-
-CREATE TABLE themes (
-    theme_id SERIAL PRIMARY KEY,
-    genre VARCHAR(250) NOT NULL
-);
 
 CREATE TABLE sessions (
     session_id SERIAL PRIMARY KEY,
@@ -36,6 +29,7 @@ CREATE TABLE sessions (
 	duration INTEGER NOT NULL,
     location VARCHAR(250),
     switch_mode VARCHAR(50),
+	played_with VARCHAR(250),
     game_mode VARCHAR(50),
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE
 );
@@ -48,21 +42,6 @@ CREATE TABLE session_players (
 	FOREIGN KEY (player_id) REFERENCES players(player_id) ON DELETE CASCADE
 );
 
-CREATE TABLE game_genres (
-	game_genres_id SERIAL PRIMARY KEY,
-	game_id INTEGER NOT NULL,
-	genre_id INTEGER NOT NULL,
-	FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
-	FOREIGN KEY (genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE
-);
-
-CREATE TABLE game_themes (
-	game_themes_id SERIAL PRIMARY KEY,
-	game_id INTEGER NOT NULL,
-	theme_id INTEGER NOT NULL,
-	FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
-	FOREIGN KEY (theme_id) REFERENCES themes(theme_id) ON DELETE CASCADE
-);
 
 
 

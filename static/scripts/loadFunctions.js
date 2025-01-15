@@ -7,23 +7,23 @@ function loadGames() {
     .then(data => {
         const gameSelect = $('#session-game-title');
 
-    // Clear existing options
-    gameSelect.empty();
-    gameSelect.append('<option value="">Select a game</option>');
+        // Clear existing options
+        gameSelect.empty();
+        gameSelect.append('<option value="">Select a game</option>');
 
-    // Populate select with game options
-    data.forEach(game => {
-        gameSelect.append(new Option(game.title, game.game_id));
-    });
+        // Populate select with game options
+        data.forEach(game => {
+            gameSelect.append(new Option(game.title, game.game_id));
+        });
 
-    // Initialize Select2
-    gameSelect.select2({
-        placeholder: "Select or type a game",
-        allowClear: true,
-        closeOnSelect: true,
-        dropdownAutoWidth: true,
-        selectOnClose: true
-    });
+        // Initialize Select2
+        gameSelect.select2({
+            placeholder: "Select or type a game",
+            allowClear: true,
+            closeOnSelect: true,
+            dropdownAutoWidth: true,
+            selectOnClose: true
+        });
     })
     .catch(error => {
         console.error('Error fetching games:', error);
@@ -31,15 +31,27 @@ function loadGames() {
     });
 
     // Focus search box when dropdown opens
-    // $('#session-game-title').on('select2:open', function () {
+    $(document).on('select2:open', function(e) {
+        // Ensure stable focus on search input after dropdown opens
+        setTimeout(() => {
+            let searchField = document.querySelector('.select2-container--open .select2-search__field');
+            
+            if (searchField) {
+                searchField.focus();
+                
+                // Prevent immediate loss of focus by re-focusing on blur event
+                searchField.addEventListener('blur', function() {
+                    setTimeout(() => searchField.focus(), 0);
+                }, { once: true }); // Only trigger once to avoid redundant handlers
+            }
+        }, 100); // Ensure dropdown rendering is complete
+    });
+
+    // $(document).on('select2:open', function(e) {
     //     setTimeout(() => {
-    //         document.querySelector('.select2-search__field').focus();
+    //         document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
     //     }, 0); // Delay to ensure element is fully rendered
     // });
-
-    $(document).on('select2:open', function(e) {
-        document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
-    });
 }
 
 //-----------------------------
@@ -77,7 +89,7 @@ function loadPlayers() {
 
     // Populate select with game options
     data.forEach(player => {
-        playerSelect.append(new Option(player.name, player.player_id));
+        playerSelect.append(new Option(player.name, player.name));
     });
 
     // Initialize Select2

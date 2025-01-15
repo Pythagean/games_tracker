@@ -154,32 +154,34 @@ def insert_session():
         startDate = data['startDate']
         startTime = data['startTime']
         duration = data['duration']
+        gameMode = data['gameMode']
         location = data['location']
         switchMode = data['switchMode']
-        gameMode = data['gameMode']
+        players = data['players']
+        
 
         with conn.cursor() as cursor:
             cursor.execute(
                 """
                 INSERT INTO sessions 
-                (game_id, platform, start_date, start_time, duration, location, switch_mode, game_mode) 
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s) 
+                (game_id, platform, start_date, start_time, duration, location, switch_mode, game_mode, played_with) 
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) 
                 RETURNING session_id
                 """,
-                (gameId, platform, startDate, startTime, duration, location, switchMode, gameMode,)
+                (gameId, platform, startDate, startTime, duration, location, switchMode, gameMode, players,)
             )
 
             # Get the inserted session ID
-            session_id = cursor.fetchone()[0]
+            # session_id = cursor.fetchone()[0]
 
-            # Prepare data for insertion
-            players = data['players']
-            insert_values = [(session_id, player_id) for player_id in players]
+            # # Prepare data for insertion
+            # players = data['players']
+            # insert_values = [(session_id, player_id) for player_id in players]
         
-            cursor.executemany(
-                "INSERT INTO session_players (session_id, player_id) VALUES (%s, %s)",
-                insert_values
-            )
+            # cursor.executemany(
+            #     "INSERT INTO session_players (session_id, player_id) VALUES (%s, %s)",
+            #     insert_values
+            # )
             conn.commit()
 
         return jsonify({"status": "success", "message": "Session added"}), 200

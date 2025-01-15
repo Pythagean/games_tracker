@@ -135,7 +135,7 @@ function addSession() {
         "gameMode": sessionGameMode,
         "location": sessionLocation,
         "switchMode": sessionSwitchMode,
-        "players": sessionPlayers                
+        "players": sessionPlayers.length > 0 ? sessionPlayers.join(', ') : ''
     });
 
     fetch('http://localhost:5000/sessions', {
