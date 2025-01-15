@@ -12,7 +12,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 550px;
+    width: 700px;
 }
 h1 {
     text-align: center;
@@ -93,5 +93,35 @@ span {
     width: 200px;
     height: auto;
     display: none;
-    margin-left: 15px;
+    margin-left: 95px;
 }
+
+
+/* Ensure that flexbox is used for the form columns */
+.form-columns {
+    display: flex;
+    gap: 50px; /* Adds space between the columns */
+}
+
+.column {
+    flex: 1 1 45%; /* Each column takes up roughly 45% of the container, with room for space between them */
+    min-width: 300px; /* Prevent columns from becoming too narrow */
+}
+
+/* Style form elements within the columns */
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-container input, 
+.form-container select {
+    width: 94%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+#game-title {
+    margin-bottom: -3px;
+}
+

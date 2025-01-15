@@ -168,97 +168,65 @@
 
         <div class="game-search-container">
             <div class="form-elements">
-              <label for="game-title">
-                Game Title
-                <input type="text" id="game-title" placeholder="Enter a Title" />
-              </label>
-              <button onclick="searchForGame()" class="add-button">Search</button>
+                <label for="game-title">
+                    Game Title
+                    <input type="text" id="game-title" placeholder="Enter a Title" />
+                </label>
+                <button onclick="searchForGame()" class="add-button">Search</button>
             </div>
-            <img id="game-thumbnail" src="" alt="Game Thumbnail" style="width:200px;height:auto;display:none;margin:15px;">
-          </div>
-
-        <label for="game-platform"
-          >Platform
-          <input
-            type="text"
-            id="game-platform"
-            placeholder="Enter a Platform"
-          />
-        </label>
-
-        <label for="game-genre"
-          >Genre
-          <input type="text" id="game-genre" placeholder="Enter a Genre" />
-        </label>
-
-        <label for="game-theme"
-          >Theme
-          <input type="text" id="game-theme" placeholder="Enter a Theme" />
-        </label>
-
-        <label for="game-franchise"
-          >Franchise
-          <input
-            type="text"
-            id="game-franchise"
-            placeholder="Enter a Franchise"
-          />
-        </label>
-
-        <label for="game-developer"
-          >Developer
-          <input
-            type="text"
-            id="game-developer"
-            placeholder="Enter a Developer"
-          />
-        </label>
-
-        <label for="game-publisher"
-          >Publisher
-          <input
-            type="text"
-            id="game-publisher"
-            placeholder="Enter a Publisher"
-          />
-        </label>
-
-        <label for="game-release-date"
-          >Release Date
-          <input
-            type="date"
-            id="game-release-date"
-            placeholder="Enter a Release Date"
-          />
-        </label>
-
-        <label for="game-metacritic-score"
-          >Metacritic Score
-          <input
-            type="number"
-            id="game-metacritic-score"
-            placeholder="Metacritic Score"
-            min="0"
-            max="100"
-          />
-        </label>
-
-        <label for="game-multiplayer-style"
-          >Multiplayer Style
-          <select
-            name="multiplayer-style"
-            id="game-multiplayer-style"
-            placeholder="Enter a Multiplayer Style"
-          >
-            <option value="N/A">N/A</option>
-            <option value="Co-op">Co-op</option>
-            <option value="Competitive">Competitive</option>
-          </select>
-        </label>
-
+            <img id="game-thumbnail" src="" alt="Game Thumbnail" style="width:200px;height:auto;display:none;padding: 3px; border: 3px solid #DDDDDD;">
+        </div>
+    
+        <div class="form-columns">
+            <div class="column">
+                <label for="game-platform">Platform
+                    <input type="text" id="game-platform" placeholder="Enter a Platform" />
+                </label>
+    
+                <label for="game-genre">Genre
+                    <input type="text" id="game-genre" placeholder="Enter a Genre" />
+                </label>
+    
+                <label for="game-franchise">Franchise
+                    <input type="text" id="game-franchise" placeholder="Enter a Franchise" />
+                </label>
+    
+                <label for="game-developer">Developer
+                    <input type="text" id="game-developer" placeholder="Enter a Developer" />
+                </label>
+    
+                <label for="game-release-date">Release Date
+                    <input type="date" id="game-release-date" placeholder="Enter a Release Date" />
+                </label>
+            </div>
+    
+            <div class="column">
+                <label for="game-theme">Theme
+                    <input type="text" id="game-theme" placeholder="Enter a Theme" />
+                </label>
+    
+                <label for="game-publisher">Publisher
+                    <input type="text" id="game-publisher" placeholder="Enter a Publisher" />
+                </label>
+    
+                <label for="game-metacritic-score">Metacritic Score
+                    <input type="number" id="game-metacritic-score" placeholder="Metacritic Score" min="0" max="100" />
+                </label>
+    
+                <label for="game-multiplayer-style">Multiplayer Style
+                    <select name="multiplayer-style" id="game-multiplayer-style" placeholder="Enter a Multiplayer Style">
+                        <option value="N/A">N/A</option>
+                        <option value="Co-op">Co-op</option>
+                        <option value="Competitive">Competitive</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    
         <button onclick="addGame()" class="add-button">Add Game</button>
         <div id="game-response-message" class="message"></div>
-      </div>
+    </div>
+    
 
       <!--------------->
       <!-- User Form -->
