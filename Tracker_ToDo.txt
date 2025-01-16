@@ -1,9 +1,19 @@
 Test out Power BI for franchise (sum of sessions.duration per franchise)
 
-Make new CREATE table syntaxes (for developers, publishers, genres, themes)
+Test new CREATE table syntaxes
 
-Make new Data Seeding statements for inserting to those tables
-
+Populate Data Seeding data for:
+developers
+publishers
+genres
+themes
+games - controller_style & store
+game_developer
+game_publisher
+game_theme
+game_genre
+sessions - controller_style
+session_player
 
 Controller Style
 	Controller
@@ -24,6 +34,7 @@ Store
 	Nintendo eShop
 	Nintendo (Physical)
 	Not Mine
+
 
 
 
