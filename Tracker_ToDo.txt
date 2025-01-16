@@ -17,7 +17,9 @@ game_genre
 sessions - controller_style
 session_player
 
-Can use this formula to handle 
+Can use this formula to handle single quotes
+=SUBSTITUTE(A4,"'","''")
+=CONCATENATE("values ('",SUBSTITUTE(A4,"'","''"),"');")
 
 Controller Style
 	Controller
