@@ -1,5 +1,12 @@
-delete from players;
-
-delete from games;
-
+delete from session_player;
 delete from sessions;
+delete from players;
+delete from game_theme;
+delete from game_genre;
+delete from game_publisher;
+delete from game_developer;
+delete from games;
+delete from themes;
+delete from genres;
+delete from publishers ;
+delete from developers;
