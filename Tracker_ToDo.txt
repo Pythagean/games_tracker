@@ -2,6 +2,8 @@ Test out Power BI for franchise (sum of sessions.duration per franchise)
 
 Test new CREATE table syntaxes
 
+Fix Data Seeding data to put single quotes back in game titles (Copy them back over from Games spreadsheet)
+
 Populate Data Seeding data for:
 developers
 publishers
@@ -14,6 +16,8 @@ game_theme
 game_genre
 sessions - controller_style
 session_player
+
+Can use this formula to handle 
 
 Controller Style
 	Controller
