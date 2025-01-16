@@ -10,19 +10,19 @@ CREATE TABLE publishers (
 
 CREATE TABLE genres (
 	genre_id SERIAL PRIMARY KEY,
-	name VARCHAR(250) NOT NULL
+	name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE themes (
 	theme_id SERIAL PRIMARY KEY,
-	name VARCHAR(250) NOT NULL
+	name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE games (
 	game_id SERIAL PRIMARY KEY,
 	title VARCHAR(250) NOT NULL,
-	platform VARCHAR(250) NOT NULL,
-	franchise VARCHAR(250) NOT NULL,
+	platform VARCHAR(50) NOT NULL,
+	franchise VARCHAR(50) NOT NULL,
 	release_date DATE NOT NULL,
 	first_played DATE NOT NULL,
 	last_played DATE NOT NULL,
@@ -66,17 +66,17 @@ CREATE TABLE game_theme (
 
 CREATE TABLE players (
 	player_id SERIAL PRIMARY KEY,
-	name VARCHAR(250) NOT NULL
+	name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE sessions (
 	session_id SERIAL PRIMARY KEY,
 	game_id INTEGER NOT NULL,
-	platform VARCHAR(250) NOT NULL,
+	platform VARCHAR(50) NOT NULL,
 	start_date DATE NOT NULL,
 	start_time VARCHAR(50),
 	duration INTEGER NOT NULL,
-	location VARCHAR(250),
+	location VARCHAR(100),
 	game_mode VARCHAR(50),
 	controller_style VARCHAR(50) NOT NULL,
 	FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE
