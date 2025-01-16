@@ -1,0 +1,33 @@
+Test out Power BI for franchise (sum of sessions.duration per franchise)
+
+Make new CREATE table syntaxes (for developers, publishers, genres, themes)
+
+Make new Data Seeding statements for inserting to those tables
+
+
+Controller Style
+	Controller
+	Keyboard & Mouse
+	Switch (Docked)
+	Switch (Undocked)
+	Switch (Handheld)
+
+Store
+	Steam
+	Oculus
+	Epic Games
+	Playstation (Digital)
+	Playstation (Physical)
+	Playstation (PS+)
+	Microsoft
+	Microsoft (GamePass)
+	Nintendo eShop
+	Nintendo (Physical)
+	Not Mine
+
+
+
+Changing 'Add Game' form to insert to those tables (if value doesn't already exist)
+
+
+
