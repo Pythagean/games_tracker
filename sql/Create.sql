@@ -28,7 +28,8 @@ CREATE TABLE games (
 	last_played DATE NOT NULL,
 	metacritic_score INTEGER NOT NULL,
 	multiplayer_style VARCHAR(50) NOT NULL,
-	controller_style VARCHAR(50) NOT NULL
+	controller_style VARCHAR(50) NOT NULL,
+	store VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE game_developer (
