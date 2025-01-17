@@ -42,14 +42,30 @@ function addUser() {
 function addGame() {
     var gameTitle = document.getElementById('game-title').value;
     var gamePlatform = document.getElementById('game-platform').value;
-    var gameGenre = document.getElementById('game-genre').value;
-    var gameTheme = document.getElementById('game-theme').value;
+
+    const gameGenresArray = document.getElementById('game-genres-ids').value
+      .split(',')
+      .map(genre => genre.trim())
+      .filter(genre => genre !== "");
+
+    const gameThemesArray = document.getElementById('game-theme').value
+      .split(',')
+      .map(genre => genre.trim())
+      .filter(genre => genre !== "");
+
     var gameFranchise = document.getElementById('game-franchise').value;
-    var gameDeveloper = document.getElementById('game-developer').value;
+
+    const gameDevelopersArray = document.getElementById('game-developer').value
+      .split(',')
+      .map(genre => genre.trim())
+      .filter(genre => genre !== "");
+
     var gamePublisher = document.getElementById('game-publisher').value;
     var gameReleaseDate = document.getElementById('game-release-date').value;
     var gameMetacriticScore = document.getElementById('game-metacritic-score').value;
     var gameMultiplayerStyle = document.getElementById('game-multiplayer-style').value;
+    var gameControllerStyle = document.getElementById('game-controller-style').value;
+    var gameStore = document.getElementById('game-store').value;
 
     var responseMessage = document.getElementById('game-response-message');
 
@@ -62,14 +78,16 @@ function addGame() {
     var data = JSON.stringify({ 
         "title": gameTitle,
         "platform": gamePlatform,
-        "genre": gameGenre,
-        "theme": gameTheme,
+        "genre": gameGenresArray,
+        "theme": gameThemesArray,
         "franchise": gameFranchise,
-        "developer": gameDeveloper,
+        "developer": gameDevelopersArray,
         "publisher": gamePublisher,
         "release_date": gameReleaseDate,
         "metacritic_score": gameMetacriticScore,
         "multiplayer_style": gameMultiplayerStyle,
+        "controller_style": gameControllerStyle,
+        "store": gameStore
     });
 
     fetch('http://localhost:5000/games', {
@@ -82,7 +100,7 @@ function addGame() {
         if (data.message) {
             $('#game-title').val(null);
             $('#game-platform').val(null);
-            $('#game-genre').val(null);
+            $('#game-genres').val(null);
             $('#game-theme').val(null);
             $('#game-franchise').val(null);
             $('#game-developer').val(null);
@@ -90,6 +108,8 @@ function addGame() {
             $('#game-release-date').val(null);
             $('#game-metacritic-score').val(null);
             $('#game-multiplayer-style').val("N/A");
+            $('#game-controller-style').val("Controller");
+            $('#game-store').val("Steam");
             responseMessage.innerHTML = 'Game added successfully!';
             responseMessage.style.color = 'green';
         } else {

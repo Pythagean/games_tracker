@@ -65,6 +65,10 @@ select {
     border-radius: 4px;
     cursor: pointer;
 }
+.add-button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
 button:hover {
     background-color: #218838;
 }

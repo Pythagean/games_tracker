@@ -1,6 +1,6 @@
 Test out Power BI for franchise (sum of sessions.duration per franchise)
 
-Test new CREATE table syntaxes
+Test new CREATE table syntaxes - DONE
 
 Fix Data Seeding data to put single quotes back in game titles (Copy them back over from Games spreadsheet)
 

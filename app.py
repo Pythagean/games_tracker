@@ -87,6 +87,25 @@ def get_game_details(game_id):
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@app.route('/games/search/<string:game_title>', methods=['GET'])
+def searchForGameInDb(game_title):
+    try:
+        logging.debug(f"SELECT game_id FROM games WHERE title = {game_title};")
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT game_id FROM games WHERE title = %s;", (game_title,))
+            game = cursor.fetchone()
+
+            if game:
+                # If game found, return its details
+                game_details = {
+                    'game_id': game[0]
+                }
+                return jsonify(game_details), 200
+            else:
+                return jsonify({}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 @app.route('/users', methods=['POST'])
 def insert_user():
@@ -121,24 +140,41 @@ def insert_game():
 
         title = data['title']
         platform = data['platform']
-        genre = data['genre']
-        theme = data['theme']
         franchise = data['franchise']
-        developer = data['developer']
         publisher = data['publisher']
         release_date = data['release_date']
-        metacritic_score = data['metacritic_score']
+        metacritic_score = data['metacritic_score'] or 0
         multiplayer_style = data['multiplayer_style']
+        controller_style = data['controller_style']
+        store = data['store']
+
+        # genre = data['genre']
+        theme = data['theme']
+        developer = data['developer']
 
         with conn.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO games (title, platform, genre, theme, franchise, developer, publisher, release_date, metacritic_score, multiplayer_style) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                (title, platform, genre, theme, franchise, developer, publisher, release_date, metacritic_score, multiplayer_style,)
+                "INSERT INTO games (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING game_id",
+                (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store,)
             )
+
+            # # Get the inserted game ID
+            game_id = cursor.fetchone()
+
+            # # Prepare data for insertion
+            genres = data['genre']
+            insert_values = [(game_id, genre_id) for genre_id in genres]
+        
+            cursor.executemany(
+                "INSERT INTO game_genre (game_id, genre_id) VALUES (%s, %s)",
+                insert_values
+            )
+
             conn.commit()
 
         return jsonify({"status": "success", "message": "Game added"}), 200
     except Exception as e:
+        logging.debug(str(e))
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
@@ -187,6 +223,10 @@ def insert_session():
         return jsonify({"status": "success", "message": "Session added"}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+
+
 
 API_KEY = '695fc51cfe9223919cc00f148f4301a0f2caf9bf'
 SEARCH_BASE_URL = "https://www.giantbomb.com/api/search/"
@@ -237,6 +277,28 @@ def gb_details(gb_game_id):
             return jsonify({"error": "Failed to fetch data from external API"}), response.status_code
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+
+@app.route('/genres/search/<string:genre_name>', methods=['GET'])
+def searchForGenreInDb(genre_name):
+    try:
+        # logging.debug(f"SELECT genre_id FROM genres WHERE name = {genre_name};")
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT genre_id FROM genres WHERE name = %s;", (genre_name,))
+            genre = cursor.fetchone()
+
+            if genre:
+                # If game found, return its details
+                genre_details = {
+                    'genre_id': genre[0]
+                }
+                return jsonify(genre_details), 200
+            else:
+                return jsonify({}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

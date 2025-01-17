@@ -2,6 +2,8 @@ select * from players;
 
 select * from games;
 
+select * from games where developer like '%Naughty%';
+
 select * from sessions;
 
 select sum(duration)/60 from sessions where played_with LIKE '%Jordan%';

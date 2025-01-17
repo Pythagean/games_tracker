@@ -3,11 +3,6 @@ CREATE TABLE developers (
 	name VARCHAR(250) NOT NULL
 );
 
-CREATE TABLE publishers (
-	publisher_id SERIAL PRIMARY KEY,
-	name VARCHAR(250) NOT NULL
-);
-
 CREATE TABLE genres (
 	genre_id SERIAL PRIMARY KEY,
 	name VARCHAR(50) NOT NULL
@@ -21,15 +16,16 @@ CREATE TABLE themes (
 CREATE TABLE games (
 	game_id SERIAL PRIMARY KEY,
 	title VARCHAR(250) NOT NULL,
-	platform VARCHAR(50) NOT NULL,
-	franchise VARCHAR(50) NOT NULL,
+	platform VARCHAR(250) NOT NULL,
+	franchise VARCHAR(50),
+	publisher VARCHAR(100),
 	release_date DATE NOT NULL,
-	first_played DATE NOT NULL,
-	last_played DATE NOT NULL,
-	metacritic_score INTEGER NOT NULL,
-	multiplayer_style VARCHAR(50) NOT NULL,
-	controller_style VARCHAR(50) NOT NULL,
-	store VARCHAR(50) NOT NULL
+	first_played DATE,
+	last_played DATE,
+	metacritic_score INTEGER,
+	multiplayer_style VARCHAR(50),
+	controller_style VARCHAR(50),
+	store VARCHAR(50)
 );
 
 CREATE TABLE game_developer (
@@ -38,14 +34,6 @@ CREATE TABLE game_developer (
 	developer_id INTEGER NOT NULL,
 	FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
 	FOREIGN KEY (developer_id) REFERENCES developers(developer_id) ON DELETE CASCADE
-);
-
-CREATE TABLE game_publisher (
-	game_publisher_id SERIAL PRIMARY KEY,
-	game_id INTEGER NOT NULL,
-	publisher_id INTEGER NOT NULL,
-	FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
-	FOREIGN KEY (publisher_id) REFERENCES publishers(publisher_id) ON DELETE CASCADE
 );
 
 CREATE TABLE game_genre (
