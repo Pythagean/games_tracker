@@ -48,14 +48,14 @@ function addGame() {
       .map(genre => genre.trim())
       .filter(genre => genre !== "");
 
-    const gameThemesArray = document.getElementById('game-theme').value
+    const gameThemesArray = document.getElementById('game-themes-ids').value
       .split(',')
       .map(genre => genre.trim())
       .filter(genre => genre !== "");
 
     var gameFranchise = document.getElementById('game-franchise').value;
 
-    const gameDevelopersArray = document.getElementById('game-developer').value
+    const gameDevelopersArray = document.getElementById('game-developers-ids').value
       .split(',')
       .map(genre => genre.trim())
       .filter(genre => genre !== "");
@@ -101,9 +101,9 @@ function addGame() {
             $('#game-title').val(null);
             $('#game-platform').val(null);
             $('#game-genres').val(null);
-            $('#game-theme').val(null);
+            $('#game-themes').val(null);
             $('#game-franchise').val(null);
-            $('#game-developer').val(null);
+            $('#game-developers').val(null);
             $('#game-publisher').val(null);
             $('#game-release-date').val(null);
             $('#game-metacritic-score').val(null);

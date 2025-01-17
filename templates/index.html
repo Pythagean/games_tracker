@@ -30,6 +30,8 @@
     <script src="{{ url_for('static', filename='scripts/giantbomb.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/games.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/genres.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/themes.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/developers.js') }}"></script>
   </head>
   <body>
     <div class="container">
@@ -213,14 +215,15 @@
               <input hidden="true" id="game-genres-ids" value=""></input>
             </label>
 
-            <label for="game-developer"
+            <label for="game-developers"
               >Developer
               <input
                 type="text"
-                id="game-developer"
+                id="game-developers"
                 placeholder="Enter a Developer"
                 disabled="true"
               />
+              <input hidden="true" id="game-developers-ids" value=""></input>
             </label>
 
             <label for="game-franchise"
@@ -275,9 +278,10 @@
               />
             </label>
 
-            <label for="game-theme"
+            <label for="game-themes"
               >Theme
-              <input type="text" id="game-theme" placeholder="Enter a Theme" />
+              <input type="text" id="game-themes" placeholder="Enter a Theme" />
+              <input hidden="true" id="game-themes-ids" value=""></input>
             </label>
 
             <label for="game-publisher"

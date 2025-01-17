@@ -47,18 +47,25 @@ function getGameInfoFromGB(gameId) {
           $("#game-platform").val("");
         }
 
-        if (
-          data &&
-          data.results.developers &&
-          data.results.developers.length > 0
-        ) {
-          const developerList = data.results.developers
-            .map((dev) => dev.name)
-            .join(", ");
-          $("#game-developer").val(developerList);
-        } else {
-          $("#game-developer").val("");
-        }
+        if (data && data.results.developers && data.results.developers.length > 0) {
+            const developersList = data.results.developers
+              .map((developer) => developer.name)
+              .join(", ");
+            $("#game-developers").val(developersList);
+  
+            var gameDeveloperIds = [];
+  
+            for (let i = 0; i < data.results.developers.length; i++) {
+              if (data.results.developers[i] != null){
+                  const developer_id = await searchForDeveloperInDb(data.results.developers[i].name);
+                  gameDeveloperIds.push(developer_id);
+              }
+            }
+            $("#game-developers-ids").val(gameDeveloperIds.join(', '));
+  
+          } else {
+            $("#game-developer").val("");
+          }
 
         if (
           data &&
@@ -73,15 +80,28 @@ function getGameInfoFromGB(gameId) {
           $("#game-publisher").val("");
         }
 
+        // THEMES
         if (data && data.results.themes && data.results.themes.length > 0) {
-          const themeList = data.results.themes
-            .map((dev) => dev.name)
-            .join(", ");
-          $("#game-theme").val(themeList);
-        } else {
-          $("#game-theme").val("");
-        }
+            const themesList = data.results.themes
+              .map((theme) => theme.name)
+              .join(", ");
+            $("#game-themes").val(themesList);
+  
+            var gameThemeIds = [];
+  
+            for (let i = 0; i < data.results.themes.length; i++) {
+              if (data.results.themes[i] != null){
+                  const theme_id = await searchForThemeInDb(data.results.themes[i].name);
+                  gameThemeIds.push(theme_id);
+              }
+            }
+            $("#game-themes-ids").val(gameThemeIds.join(', '));
+  
+          } else {
+            $("#game-themes").val("");
+          }
 
+          // GENRES
         if (data && data.results.genres && data.results.genres.length > 0) {
           const genreList = data.results.genres
             .map((genre) => genre.name)

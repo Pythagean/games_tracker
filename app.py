@@ -158,15 +158,30 @@ def insert_game():
                 (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store,)
             )
 
-            # # Get the inserted game ID
+            # Get the inserted game ID
             game_id = cursor.fetchone()
 
-            # # Prepare data for insertion
+            # genres
             genres = data['genre']
             insert_values = [(game_id, genre_id) for genre_id in genres]
-        
             cursor.executemany(
                 "INSERT INTO game_genre (game_id, genre_id) VALUES (%s, %s)",
+                insert_values
+            )
+
+            # themes
+            themes = data['theme']
+            insert_values = [(game_id, theme_id) for theme_id in themes]
+            cursor.executemany(
+                "INSERT INTO game_theme (game_id, theme_id) VALUES (%s, %s)",
+                insert_values
+            )
+
+            # developers
+            developers = data['developer']
+            insert_values = [(game_id, developer_id) for developer_id in developers]
+            cursor.executemany(
+                "INSERT INTO game_developer (game_id, developer_id) VALUES (%s, %s)",
                 insert_values
             )
 
@@ -294,6 +309,42 @@ def searchForGenreInDb(genre_name):
                     'genre_id': genre[0]
                 }
                 return jsonify(genre_details), 200
+            else:
+                return jsonify({}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/themes/search/<string:theme_name>', methods=['GET'])
+def searchForThemeInDb(theme_name):
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT theme_id FROM themes WHERE name = %s;", (theme_name,))
+            theme = cursor.fetchone()
+
+            if theme:
+                # If theme found, return its details
+                theme_details = {
+                    'theme_id': theme[0]
+                }
+                return jsonify(theme_details), 200
+            else:
+                return jsonify({}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/developers/search/<string:developer_name>', methods=['GET'])
+def searchForDeveloperInDb(developer_name):
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT developer_id FROM developers WHERE name = %s;", (developer_name,))
+            developer = cursor.fetchone()
+
+            if developer:
+                # If developer found, return its details
+                developer_details = {
+                    'developer_id': developer[0]
+                }
+                return jsonify(developer_details), 200
             else:
                 return jsonify({}), 200
     except Exception as e:
