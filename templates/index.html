@@ -50,11 +50,13 @@
       <!-- Session Form -->
       <!--------------->
       <div class="form-container active" id="session-form">
-        <label for="session-game-title"
+
+        <div class="form-columns">
+          <div class="column">
+            <label for="session-game-title"
           >Game Title
           <select id="session-game-title" style="width: 100%"></select>
         </label>
-
         <label for="session-platform"
           >Platform
           <input id="session-platform" type="text" />
@@ -95,6 +97,22 @@
             <option value="240">4 hrs (240 mins)</option>
           </select>
         </label>
+          </div>
+          <div class="column">
+            <img
+            id="session-thumbnail"
+            src=""
+            alt="Session Thumbnail"
+            style="
+              width: 200px;
+              height: auto;
+              display: none;
+              padding: 3px;
+              border: 3px solid #dddddd;
+            "
+          />
+
+        
 
         <label for="session-game-mode"
           >Game Mode
@@ -146,20 +164,30 @@
           </select>
         </label>
 
-        <label for="session-switch-mode"
-          >Switch Mode
-          <select
-            name="session-switch-mode"
-            id="session-switch-mode"
-            placeholder="Select a Switch Mode"
-            disabled
-          >
-            <option value="N/A">N/A</option>
-            <option value="Docked">Docked</option>
-            <option value="Handheld">Handheld</option>
-            <option value="Undocked">Undocked</option>
-          </select>
-        </label>
+        <label for="session-controller-style"
+              >Controller Style
+              <select
+                name="controller-style"
+                id="session-controller-style"
+                placeholder="Enter a Controller Style"
+              >
+                <option value="Controller">Controller</option>
+                <option value="Keyboard & Mouse">Keyboard & Mouse</option>
+                <option value="Oculus Touch">Oculus Touch</option>
+                <option value="Phone">Phone</option>
+                <option value="Handheld">Handheld</option>
+                <option value="Kinect">Kinect</option>
+                <option value="Rockband Controllers">
+                  Rockband Controllers
+                </option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        
+
+        
 
         <button onclick="addSession()" class="add-button">Add Session</button>
         <div id="session-response-message" class="message"></div>

@@ -1,50 +1,16 @@
-Test out Power BI for franchise (sum of sessions.duration per franchise)
-
-Test new CREATE table syntaxes - DONE
-
 Fix Data Seeding data to put single quotes back in game titles (Copy them back over from Games spreadsheet)
-
-Populate Data Seeding data for:
-developers
-publishers
-genres
-themes
-games - controller_style & store
-game_developer
-game_publisher
-game_theme
-game_genre
-sessions - controller_style
-session_player
 
 Can use this formula to handle single quotes
 =SUBSTITUTE(A4,"'","''")
 =CONCATENATE("values ('",SUBSTITUTE(A4,"'","''"),"');")
-
-Controller Style
-	Controller
-	Keyboard & Mouse
-	Switch (Docked)
-	Switch (Undocked)
-	Switch (Handheld)
-
-Store
-	Steam
-	Oculus
-	Epic Games
-	Playstation (Digital)
-	Playstation (Physical)
-	Playstation (PS+)
-	Microsoft
-	Microsoft (GamePass)
-	Nintendo eShop
-	Nintendo (Physical)
-	Not Mine
-
-
 
 
 Changing 'Add Game' form to insert to those tables (if value doesn't already exist)
 
 
 
+Make 'Add Developer' form
+Make 'Add Genre' form
+Make 'Add Theme' form
+
+Disable Add Game button and display message if any of Developer, Theme or Genre can't be found

@@ -70,7 +70,7 @@ def games():
 def get_game_details(game_id):
     try:
         with conn.cursor() as cursor:
-            cursor.execute("SELECT title, platform FROM games WHERE game_id = %s;", (game_id,))
+            cursor.execute("SELECT title, platform, giantbomb_id FROM games WHERE game_id = %s;", (game_id,))
             game = cursor.fetchone()
 
             if game:
@@ -78,7 +78,8 @@ def get_game_details(game_id):
                 game_details = {
                     'game_id': game_id,
                     'title': game[0],
-                    'platform': game[1]
+                    'platform': game[1],
+                    'giantbomb_id': game[2]
                 }
                 return jsonify(game_details), 200
             else:
@@ -205,9 +206,10 @@ def insert_session():
         startDate = data['startDate']
         startTime = data['startTime']
         duration = data['duration']
-        gameMode = data['gameMode']
         location = data['location']
-        switchMode = data['switchMode']
+        gameMode = data['gameMode']
+        controllerStyle = data['controllerStyle']
+
         players = data['players']
         
 
@@ -215,11 +217,11 @@ def insert_session():
             cursor.execute(
                 """
                 INSERT INTO sessions 
-                (game_id, platform, start_date, start_time, duration, location, switch_mode, game_mode, played_with) 
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) 
+                (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) 
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s) 
                 RETURNING session_id
                 """,
-                (gameId, platform, startDate, startTime, duration, location, switchMode, gameMode, players,)
+                (gameId, platform, startDate, startTime, duration, location, gameMode, controllerStyle,)
             )
 
             # Get the inserted session ID

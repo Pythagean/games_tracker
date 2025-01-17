@@ -146,3 +146,23 @@ function getGameInfoFromGB(gameId) {
     })
     .catch((error) => console.error("Error:", error));
 }
+
+function getGameThumbnailFromGB(gameId) {
+    fetch("http://localhost:5000/gb/game/" + gameId + "?format=json&field_list=image", {
+      method: "GET",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // Parse the response as JSON
+      })
+      .then(async (data) => {
+        if (data && data.results) {
+          const imageContainer = document.getElementById("session-thumbnail");
+          imageContainer.src = data.results.image.small_url;
+          imageContainer.style.display = "block";
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  }

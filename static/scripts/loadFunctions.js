@@ -64,8 +64,11 @@ function loadGameDetails(gameId) {
         .then(response => response.json())
         .then(gameDetails => {
             // Update other fields with game details
-            $('#session-platform').text(gameDetails.platform || 'N/A');
-            $('#session-platform').val(gameDetails.platform || 'N/A');
+            $('#session-platform').text(gameDetails.platform || '');
+            $('#session-platform').val(gameDetails.platform || '');
+
+            if (gameDetails.giantbomb_id > 0) getGameThumbnailFromGB(gameDetails.giantbomb_id);
+
             toggleSwitchMode(gameDetails.platform);
         })
         .catch(error => {

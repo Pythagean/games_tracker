@@ -134,7 +134,8 @@ function addSession() {
     var sessionDuration = document.getElementById('session-duration').value;
     var sessionLocation = document.getElementById('session-location').value;
     var sessionGameMode = document.getElementById('session-game-mode').value;
-    var sessionSwitchMode = document.getElementById('session-switch-mode').value;
+    var sessionControllerStyle = document.getElementById('session-controller-style').value;
+
     var sessionPlayers = $('#session-players').val(); 
 
     var responseMessage = document.getElementById('session-response-message');
@@ -154,7 +155,7 @@ function addSession() {
         "duration": sessionDuration,
         "gameMode": sessionGameMode,
         "location": sessionLocation,
-        "switchMode": sessionSwitchMode,
+        "controllerStyle": sessionControllerStyle,
         "players": sessionPlayers.length > 0 ? sessionPlayers.join(', ') : ''
     });
 
@@ -172,8 +173,8 @@ function addSession() {
             $('#session-start-time').val(null);
             $('#session-duration').val(null);
             $('#session-game-mode').val(null);
+            $('#session-controller-style').val("Controller");
             $('#session-players').val(null);
-            $('#session-switch-mode').val(null);
             responseMessage.innerHTML = 'Session added successfully!';
             responseMessage.style.color = 'green';
         } else {

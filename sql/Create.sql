@@ -25,7 +25,8 @@ CREATE TABLE games (
 	metacritic_score INTEGER,
 	multiplayer_style VARCHAR(50),
 	controller_style VARCHAR(50),
-	store VARCHAR(50)
+	store VARCHAR(50),
+	giantbomb_id INTEGER
 );
 
 CREATE TABLE game_developer (
