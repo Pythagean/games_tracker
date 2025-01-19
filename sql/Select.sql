@@ -15,8 +15,16 @@ select * from game_genre;
 SELECT g.game_id, g.title, genres.genre_id, genres.name FROM games g
 left join game_genre gg on g.game_id = gg.game_id
 left join genres on gg.genre_id = genres.genre_id
+WHERE title = 'Animal Well';
+
+SELECT g.game_id, g.title, themes.theme_id, themes.name FROM games g
 left join game_theme gt on g.game_id = gt.game_id
 left join themes on gt.theme_id = themes.theme_id
+WHERE title = 'Animal Well';
+
+SELECT g.game_id, g.title, developers.developer_id, developers.name FROM games g
+left join game_developer gd on g.game_id = gd.game_id
+left join developers on gd.developer_id = developers.developer_id
 WHERE title = 'Animal Well';
 
 

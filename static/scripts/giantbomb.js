@@ -54,13 +54,19 @@ function getGameInfoFromGB(gameId) {
             $("#game-developers").val(developersList);
   
             var gameDeveloperIds = [];
+            var gameDeveloperNamesToInsert = [];
   
             for (let i = 0; i < data.results.developers.length; i++) {
               if (data.results.developers[i] != null){
                   const developer_id = await searchForDeveloperInDb(data.results.developers[i].name);
-                  gameDeveloperIds.push(developer_id);
+                  if (developer_id == null) {
+                    gameDeveloperNamesToInsert.push(data.results.developers[i].name);
+                  } else {
+                    gameDeveloperIds.push(developer_id);
+                  }
               }
             }
+            $("#game-developers-names-to-insert").val(gameDeveloperNamesToInsert.join(', '));
             $("#game-developers-ids").val(gameDeveloperIds.join(', '));
   
           } else {
@@ -147,22 +153,22 @@ function getGameInfoFromGB(gameId) {
     .catch((error) => console.error("Error:", error));
 }
 
-function getGameThumbnailFromGB(gameId) {
-    fetch("http://localhost:5000/gb/game/" + gameId + "?format=json&field_list=image", {
-      method: "GET",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json(); // Parse the response as JSON
-      })
-      .then(async (data) => {
-        if (data && data.results) {
-          const imageContainer = document.getElementById("session-thumbnail");
-          imageContainer.src = data.results.image.small_url;
-          imageContainer.style.display = "block";
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-  }
+// function getGameThumbnailFromGB(gameId) {
+//     fetch("http://localhost:5000/gb/game/" + gameId + "?format=json&field_list=image", {
+//       method: "GET",
+//     })
+//       .then((response) => {
+//         if (!response.ok) {
+//           throw new Error("Network response was not ok");
+//         }
+//         return response.json(); // Parse the response as JSON
+//       })
+//       .then(async (data) => {
+//         if (data && data.results) {
+//           const imageContainer = document.getElementById("session-thumbnail");
+//           imageContainer.src = data.results.image.small_url;
+//           imageContainer.style.display = "block";
+//         }
+//       })
+//       .catch((error) => console.error("Error:", error));
+//   }

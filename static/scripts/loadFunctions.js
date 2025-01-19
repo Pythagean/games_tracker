@@ -60,14 +60,21 @@ function loadGames() {
 function loadGameDetails(gameId) {
     if (!gameId) return;
 
-    fetch(`http://localhost:5000/games/${gameId}`, { method: 'GET' }) // Assuming your API can return details of a specific game
+    fetch(`http://localhost:5000/games/${gameId}`, { method: 'GET' })
         .then(response => response.json())
         .then(gameDetails => {
             // Update other fields with game details
             $('#session-platform').text(gameDetails.platform || '');
             $('#session-platform').val(gameDetails.platform || '');
 
-            if (gameDetails.giantbomb_id > 0) getGameThumbnailFromGB(gameDetails.giantbomb_id);
+            // if (gameDetails.giantbomb_id > 0) getGameThumbnailFromGB(gameDetails.giantbomb_id);
+
+            if (gameDetails.giantbomb_img_url != "") {
+                const imageContainer = document.getElementById("session-thumbnail");
+                imageContainer.src = gameDetails.giantbomb_img_url;
+                imageContainer.style.display = "block";
+            }
+            
 
             toggleSwitchMode(gameDetails.platform);
         })

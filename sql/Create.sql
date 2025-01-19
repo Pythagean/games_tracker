@@ -27,7 +27,7 @@ CREATE TABLE games (
 	controller_style VARCHAR(50),
 	store VARCHAR(50),
 	giantbomb_id INTEGER,
-	giantbomb_img_url
+	giantbomb_img_url VARCHAR(250)
 );
 
 CREATE TABLE game_developer (

@@ -70,7 +70,7 @@ def games():
 def get_game_details(game_id):
     try:
         with conn.cursor() as cursor:
-            cursor.execute("SELECT title, platform, giantbomb_id FROM games WHERE game_id = %s;", (game_id,))
+            cursor.execute("SELECT title, platform, giantbomb_id, giantbomb_img_url FROM games WHERE game_id = %s;", (game_id,))
             game = cursor.fetchone()
 
             if game:
@@ -79,7 +79,8 @@ def get_game_details(game_id):
                     'game_id': game_id,
                     'title': game[0],
                     'platform': game[1],
-                    'giantbomb_id': game[2]
+                    'giantbomb_id': game[2],
+                    'giantbomb_img_url': game[3]
                 }
                 return jsonify(game_details), 200
             else:
@@ -108,6 +109,9 @@ def searchForGameInDb(game_title):
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
+#############
+# INSERT USER
+#############
 @app.route('/users', methods=['POST'])
 def insert_user():
     try:
@@ -131,7 +135,38 @@ def insert_user():
         return jsonify({"status": "success", "message": "User added"}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+    
+#############
+# INSERT DEVELOPER
+#############
+@app.route('/developers', methods=['POST'])
+def insert_developer():
+    try:
+        # Ensure the request contains JSON
+        data = request.get_json()
+        logging.debug(f"Received data: {data}")  # Log the received data
 		
+		# Check if the keys 'name' existd in the data
+        if 'name' not in data:
+            return jsonify({"status": "error", "message": "Missing 'name' from json"}), 400
+		
+        name = data['name']
+
+        with conn.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO developers (name) VALUES (%s) RETURNING developer_id",
+                (name,)
+            )
+            developer_id = cursor.fetchone()[0]
+            conn.commit()
+
+        return jsonify({"status": "success", "message": "Developer added", "developer_id": developer_id}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+		
+#############
+# INSERT GAME
+#############
 @app.route('/games', methods=['POST'])
 def insert_game():
     try:
@@ -194,6 +229,9 @@ def insert_game():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
+#############
+# INSERT SESSION
+#############
 @app.route('/sessions', methods=['POST'])
 def insert_session():
     try:

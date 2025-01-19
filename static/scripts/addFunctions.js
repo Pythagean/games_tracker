@@ -39,7 +39,7 @@ function addUser() {
 //-----------------------------
 //         ADD GAME
 //-----------------------------
-function addGame() {
+async function addGame() {
     var gameTitle = document.getElementById('game-title').value;
     var gamePlatform = document.getElementById('game-platform').value;
 
@@ -59,6 +59,35 @@ function addGame() {
       .split(',')
       .map(genre => genre.trim())
       .filter(genre => genre !== "");
+
+    const gameDevelopersNamesToInsertArray = document.getElementById('game-developers-names-to-insert').value
+      .split(',')
+      .map(genre => genre.trim())
+      .filter(genre => genre !== "");
+
+    if (gameDevelopersNamesToInsertArray.length > 0){
+
+        for (let i = 0; i < gameDevelopersNamesToInsertArray.length; i++) {
+
+            await fetch('http://localhost:5000/developers', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    "name": gameDevelopersNamesToInsertArray[i]
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                gameDevelopersArray.push(data.developer_id)
+            })
+            .catch(error => {
+                responseMessage.innerHTML = 'Error: ' + error.message;
+                responseMessage.style.color = 'red';
+            });
+        }
+    }
+
+    
 
     var gamePublisher = document.getElementById('game-publisher').value;
     var gameReleaseDate = document.getElementById('game-release-date').value;
