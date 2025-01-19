@@ -87,14 +87,14 @@ async function addGame() {
         }
     }
 
-    
-
     var gamePublisher = document.getElementById('game-publisher').value;
     var gameReleaseDate = document.getElementById('game-release-date').value;
     var gameMetacriticScore = document.getElementById('game-metacritic-score').value;
     var gameMultiplayerStyle = document.getElementById('game-multiplayer-style').value;
     var gameControllerStyle = document.getElementById('game-controller-style').value;
     var gameStore = document.getElementById('game-store').value;
+    var gameGiantbombId = document.getElementById('game-giantbomb-id').value;
+    var gameGiantbombImgUrl = document.getElementById('game-giantbomb-img-url').value;
 
     var responseMessage = document.getElementById('game-response-message');
 
@@ -116,7 +116,9 @@ async function addGame() {
         "metacritic_score": gameMetacriticScore,
         "multiplayer_style": gameMultiplayerStyle,
         "controller_style": gameControllerStyle,
-        "store": gameStore
+        "store": gameStore,
+        "giantbomb_id": gameGiantbombId,
+        "giantbomb_img_url": gameGiantbombImgUrl
     });
 
     fetch('http://localhost:5000/games', {

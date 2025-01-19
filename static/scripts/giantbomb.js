@@ -142,6 +142,8 @@ function getGameInfoFromGB(gameId) {
         }
 
         $("#game-release-date").val(data.results.original_release_date);
+        $("#game-giantbomb-id").val(data.results.id);
+        $("#game-giantbomb-img-url").val(data.results.image.small_url);
 
         const imageContainer = document.getElementById("game-thumbnail");
         imageContainer.src = data.results.image.small_url;

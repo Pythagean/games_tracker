@@ -183,6 +183,8 @@ def insert_game():
         multiplayer_style = data['multiplayer_style']
         controller_style = data['controller_style']
         store = data['store']
+        giantbomb_id = data['giantbomb_id']
+        giantbomb_img_url = data['giantbomb_img_url']
 
         # genre = data['genre']
         theme = data['theme']
@@ -190,8 +192,8 @@ def insert_game():
 
         with conn.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO games (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING game_id",
-                (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store,)
+                "INSERT INTO games (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING game_id",
+                (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url,)
             )
 
             # Get the inserted game ID
