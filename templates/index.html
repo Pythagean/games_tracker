@@ -62,53 +62,56 @@
                 <option value="240">4 hrs (240 mins)</option>
               </select>
             </label>
+            <label for="session-game-mode">Game Mode <select name="session-game-mode" id="session-game-mode" placeholder="Select a Game Mode">
+              <option value="Singleplayer">Singleplayer</option>
+              <option value="Online Multiplayer">Online Multiplayer</option>
+              <option value="Local Multiplayer">Local Multiplayer</option>
+            </select>
+          </label>
           </div>
           <div class="column">
-            <img id="session-thumbnail" src="" alt="Session Thumbnail" style="
-              width: auto;
-              height: auto;
-              max-height: 200px;
-              max-width: 200px;
-              display: none;
-              padding: 3px;
-              border: 3px solid #dddddd;
-            " />
-            <label for="session-game-mode">Game Mode <select name="session-game-mode" id="session-game-mode" placeholder="Select a Game Mode">
-                <option value="Singleplayer">Singleplayer</option>
-                <option value="Online Multiplayer">Online Multiplayer</option>
-                <option value="Local Multiplayer">Local Multiplayer</option>
-              </select>
-            </label>
-            <label for="session-player-label">Played With <select id="session-players" style="width: 100%" disabled multiple="multiple"></select>
-            </label>
-            <label for="session-location">Location <select name="session-location" id="session-location" placeholder="Select a Location">
-                <option value="Beach">Beach</option>
-                <option value="Bed">Bed</option>
-                <option value="Bedroom">Bedroom</option>
-                <option value="Bus / Bus Stop">Bus / Bus Stop</option>
-                <option value="Computer Room">Computer Room</option>
-                <option value="Conor & Nat's Place">Conor & Nat's Place</option>
-                <option value="Conor's Room">Conor's Room</option>
-                <option value="Freddie's Place">Freddie's Place</option>
-                <option value="Lounge" selected>Lounge</option>
-                <option value="Airbnb">Airbnb</option>
-                <option value="Plane">Plane</option>
-                <option value="Regan, Amy & Brayden's Place"> Regan, Amy & Brayden's Place </option>
-                <option value="Simone & Kyle's Place">Simone & Kyle's Place</option>
-                <option value="Train / Train Station">Train / Train Station</option>
-                <option value="Work">Work</option>
-              </select>
-            </label>
-            <label for="session-controller-style">Controller Style <select name="controller-style" id="session-controller-style" placeholder="Enter a Controller Style">
-                <option value="Controller">Controller</option>
-                <option value="Keyboard & Mouse">Keyboard & Mouse</option>
-                <option value="Oculus Touch">Oculus Touch</option>
-                <option value="Phone">Phone</option>
-                <option value="Handheld">Handheld</option>
-                <option value="Kinect">Kinect</option>
-                <option value="Rockband Controllers"> Rockband Controllers </option>
-              </select>
-            </label>
+            <div class="session-image-container">
+              <img id="session-thumbnail" src="static/placeholder.png" alt="Session Thumbnail" style="
+                width: auto;
+                max-height: 200px;
+                max-width: 200px;
+                display: block;
+                padding: 3px;
+                " />
+            </div>
+            <div style="margin-top:55px;">
+              <label for="session-player-label">Played With <select id="session-players" style="width: 100%" disabled multiple="multiple"></select>
+              </label>
+              <label for="session-location">Location <select name="session-location" id="session-location" placeholder="Select a Location">
+                  <option value="Beach">Beach</option>
+                  <option value="Bed">Bed</option>
+                  <option value="Bedroom">Bedroom</option>
+                  <option value="Bus / Bus Stop">Bus / Bus Stop</option>
+                  <option value="Computer Room">Computer Room</option>
+                  <option value="Conor & Nat's Place">Conor & Nat's Place</option>
+                  <option value="Conor's Room">Conor's Room</option>
+                  <option value="Freddie's Place">Freddie's Place</option>
+                  <option value="Lounge" selected>Lounge</option>
+                  <option value="Airbnb">Airbnb</option>
+                  <option value="Plane">Plane</option>
+                  <option value="Regan, Amy & Brayden's Place"> Regan, Amy & Brayden's Place </option>
+                  <option value="Simone & Kyle's Place">Simone & Kyle's Place</option>
+                  <option value="Train / Train Station">Train / Train Station</option>
+                  <option value="Work">Work</option>
+                </select>
+              </label>
+              <label for="session-controller-style">Controller Style <select name="controller-style" id="session-controller-style" placeholder="Enter a Controller Style">
+                  <option value="Controller">Controller</option>
+                  <option value="Keyboard & Mouse">Keyboard & Mouse</option>
+                  <option value="Oculus Touch">Oculus Touch</option>
+                  <option value="Phone">Phone</option>
+                  <option value="Handheld">Handheld</option>
+                  <option value="Kinect">Kinect</option>
+                  <option value="Rockband Controllers"> Rockband Controllers </option>
+                </select>
+              </label>
+            </div>
+            
           </div>
         </div>
         <button onclick="addSession()" class="add-button">Add Session</button>
@@ -124,15 +127,17 @@
             </label>
             <button onclick="searchGameButtonClick()" class="add-button"> Search </button>
           </div>
-          <img id="game-thumbnail" src="" alt="Game Thumbnail" style="
-              width: auto;
-              height: auto;
-              max-height: 200px;
-              max-width: 200px;
-              display: none;
-              padding: 3px;
-              border: 3px solid #dddddd;
-            " />
+          <div class="game-image-container">
+            <img id="game-thumbnail"  src="static/placeholder.png" alt="Game Thumbnail" style="
+            width: auto;
+            height: auto;
+            max-height: 200px;
+            max-width: 200px;
+            display: block;
+            padding: 3px;
+          " />
+          </div>
+          
         </div>
         <div class="form-columns">
           <div class="column">
