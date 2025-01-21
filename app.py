@@ -265,16 +265,16 @@ def insert_session():
             )
 
             # Get the inserted session ID
-            # session_id = cursor.fetchone()[0]
+            session_id = cursor.fetchone()[0]
 
-            # # Prepare data for insertion
-            # players = data['players']
-            # insert_values = [(session_id, player_id) for player_id in players]
+            # Prepare data for insertion
+            players = data['players']
+            insert_values = [(session_id, player_id) for player_id in players]
         
-            # cursor.executemany(
-            #     "INSERT INTO session_players (session_id, player_id) VALUES (%s, %s)",
-            #     insert_values
-            # )
+            cursor.executemany(
+                "INSERT INTO session_player (session_id, player_id) VALUES (%s, %s)",
+                insert_values
+            )
             conn.commit()
 
         return jsonify({"status": "success", "message": "Session added"}), 200

@@ -82,8 +82,12 @@
                 " />
             </div>
             <div style="margin-top:55px;">
-              <label for="session-player-label">Played With <select id="session-players" style="width: 100%" disabled multiple="multiple"></select>
+
+              <label for="session-player-label">Played With 
+                <select id="session-players" style="width: 100%" disabled multiple="multiple"></select>
+                <input hidden="true" id="session-player-ids" value=""></input>
               </label>
+
               <label for="session-location">Location <select name="session-location" id="session-location" placeholder="Select a Location">
                   <option value="Beach">Beach</option>
                   <option value="Bed">Bed</option>

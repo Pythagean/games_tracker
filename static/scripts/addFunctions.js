@@ -187,7 +187,7 @@ function addSession() {
         "gameMode": sessionGameMode,
         "location": sessionLocation,
         "controllerStyle": sessionControllerStyle,
-        "players": sessionPlayers.length > 0 ? sessionPlayers.join(', ') : ''
+        "players": sessionPlayers
     });
 
     fetch('http://localhost:5000/sessions', {
@@ -198,14 +198,14 @@ function addSession() {
     .then(response => response.json())
     .then(data => {
         if (data.message) {
-            $('#session-game-title').val(null);
-            $('#session-platform').val(null);
-            $('#session-start-date').val(null);
-            $('#session-start-time').val(null);
-            $('#session-duration').val(null);
-            $('#session-game-mode').val(null);
-            $('#session-controller-style').val("Controller");
-            $('#session-players').val(null);
+            // $('#session-game-title').val(null);
+            // $('#session-platform').val(null);
+            // $('#session-start-date').val(null);
+            // $('#session-start-time').val(null);
+            // $('#session-duration').val(null);
+            // $('#session-game-mode').val(null);
+            // $('#session-controller-style').val("Controller");
+            // $('#session-players').val(null);
             responseMessage.innerHTML = 'Session added successfully!';
             responseMessage.style.color = 'green';
         } else {

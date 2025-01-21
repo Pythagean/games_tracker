@@ -247,6 +247,9 @@ INSERT INTO games(title, platform, franchise, publisher, release_date, first_pla
 INSERT INTO games(title, platform, franchise, publisher, release_date, first_played, last_played, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url) VALUES ('Battlefield: V', 'PC', 'Battlefield', 'Electronic Arts', '11/15/2018', '12/13/2024', '12/13/2024', '81', 'PVP', 'Keyboard & Mouse', 'Steam', '66622', 'https://www.giantbomb.com/a/uploads/scale_small/8/87790/3023796-box_bf5.png');
 INSERT INTO games(title, platform, franchise, publisher, release_date, first_played, last_played, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url) VALUES ('Sifu', 'PC', 'N/A', 'Sloclap, Microiids', '2/8/2022', '1/12/2025', '1/12/2025', '81', 'N/A', 'Controller', 'Epic Games', '81911', 'https://www.giantbomb.com/a/uploads/scale_small/33/338034/3345861-0023135362-EGS_SIFUStandardEdition_Sloclap_S4_1200x1600-32aca69d756abfcc25f8581942a6162b.jpg');
 
+
+
+
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('40', 'PC', '09/09/2018', '08:00 AM', '60', 'Bed', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('63', 'Switch', '09/09/2018', '02:00 PM', '45', 'Computer Room', 'Singleplayer', 'Handheld');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('64', 'Xbox', '09/09/2018', '09:00 PM', '60', 'Simone & Kyles', 'Local Multiplayer', 'Controller');
@@ -855,7 +858,7 @@ INSERT INTO sessions (game_id, platform, start_date, start_time, duration, locat
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('1', 'Switch', '02/20/2020', '09:00 PM', '15', 'Train / Train Station', 'Singleplayer', 'Keyboard & Mouse');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('57', 'Switch', '02/21/2020', '07:00 PM', '60', 'Lounge', 'Local Multiplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('9', 'Switch', '02/21/2020', '08:00 PM', '45', 'Lounge', 'Local Multiplayer', 'Controller');
-INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('97', '', '02/22/2020', '07:00 AM', '45', 'Bedroom', 'Singleplayer', 'Controller');
+INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('97', 'PC', '02/22/2020', '07:00 AM', '45', 'Bedroom', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('96', 'PC', '02/22/2020', '07:00 PM', '90', 'Bedroom', 'Singleplayer', 'Keyboard & Mouse');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('98', 'Switch', '02/22/2020', '09:00 PM', '90', 'Bedroom', 'Singleplayer', 'Handheld');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('98', 'Switch', '02/23/2020', '07:00 AM', '30', 'Bedroom', 'Singleplayer', 'Handheld');
@@ -2196,7 +2199,7 @@ INSERT INTO sessions (game_id, platform, start_date, start_time, duration, locat
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('156', 'PC', '02/25/2022', '04:00 PM', '90', 'Lounge', 'Online Multiplayer', 'Keyboard & Mouse');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('156', 'PC', '02/25/2022', '08:00 PM', '120', 'Lounge', 'Online Multiplayer', 'Keyboard & Mouse');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('156', 'PC', '02/26/2022', '08:00 AM', '90', 'Lounge', 'Online Multiplayer', 'Keyboard & Mouse');
-INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('156', 'PC', '02/26/2022', '03:00 PM', '120', 'Lounge', '-', 'Keyboard & Mouse');
+INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('156', 'PC', '02/26/2022', '03:00 PM', '120', 'Lounge', 'Online Multiplayer', 'Keyboard & Mouse');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('161', 'Switch', '02/27/2022', '09:00 PM', '60', 'Lounge', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('161', 'Switch', '02/28/2022', '08:00 PM', '60', 'Lounge', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('150', 'PC', '03/04/2022', '08:00 PM', '90', 'Jordans', 'Online Multiplayer', 'Controller');
@@ -3401,7 +3404,7 @@ INSERT INTO sessions (game_id, platform, start_date, start_time, duration, locat
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('203', 'PC', '11/03/2024', '07:00 PM', '120', 'Lounge', 'Online Multiplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('203', 'PC', '11/04/2024', '10:00 AM', '60', 'Lounge', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('206', 'PS4', '11/05/2024', '02:00 PM', '45', 'Lounge', 'Singleplayer', 'Controller');
-INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('206', '', '11/05/2024', '04:00 PM', '60', 'Lounge', 'Singleplayer', 'Controller');
+INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('206', 'PS4', '11/05/2024', '04:00 PM', '60', 'Lounge', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('206', 'PS4', '11/06/2024', '08:00 AM', '60', 'Lounge', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('206', 'PS4', '11/06/2024', '12:00 PM', '45', 'Lounge', 'Singleplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('206', 'PS4', '11/06/2024', '04:00 PM', '60', 'Lounge', 'Singleplayer', 'Controller');
@@ -3482,7 +3485,8 @@ INSERT INTO sessions (game_id, platform, start_date, start_time, duration, locat
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('126', 'PC', '12/21/2024', '08:00 PM', '60', 'Lounge', 'Online Multiplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('82', 'PS4', '12/30/2024', '03:00 PM', '90', 'Conor & Nats', 'Local Multiplayer', 'Controller');
 INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('210', 'PC', '01/12/2025', '06:00 PM', '45', 'Lounge', 'Singleplayer', 'Controller');
-INSERT INTO sessions (game_id, platform, start_date, start_time, duration, location, game_mode, controller_style) VALUES ('210', 'PC', '01/17/2025', '03:00 PM', '45', 'Lounge', 'Singleplayer', 'Controller');
+
+
 
 INSERT INTO developers (name) VALUES ('1-UP Studio');
 INSERT INTO developers (name) VALUES ('4J Studios');

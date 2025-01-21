@@ -99,7 +99,7 @@ function loadPlayers() {
 
     // Populate select with game options
     data.forEach(player => {
-        playerSelect.append(new Option(player.name, player.name));
+        playerSelect.append(new Option(player.name, player.player_id));
     });
 
     // Initialize Select2
