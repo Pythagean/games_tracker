@@ -81,5 +81,33 @@ CREATE TABLE session_player (
 );
 
 
+CREATE VIEW cumulative_session_durations AS
+SELECT 
+	s.session_id,
+	g.title,
+    SUM(duration) OVER (
+        PARTITION BY s.game_id 
+        ORDER BY s.session_id
+    )/60.0 AS cumulative_duration
+FROM 
+    sessions s
+JOIN 
+	games g on s.game_id = g.game_id
+ORDER BY 
+    s.game_id, s.session_id;
 
 
+CREATE VIEW cumulative_year_durations AS SELECT 
+	s.start_date,
+	EXTRACT(DOY FROM s.start_date) AS day_of_year,
+    s.session_id,
+    s.duration / 60.0 AS duration_hours,
+	EXTRACT(YEAR FROM s.start_date) AS year,
+    SUM(s.duration) OVER (
+        PARTITION BY EXTRACT(YEAR FROM s.start_date) -- Partition by game_id and year
+        ORDER BY s.session_id
+    ) / 60.0 AS cumulative_duration_hours
+FROM 
+    sessions s
+ORDER BY 
+    s.session_id;
