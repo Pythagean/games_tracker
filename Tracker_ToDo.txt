@@ -1,16 +1,8 @@
-Fix Data Seeding data to put single quotes back in game titles (Copy them back over from Games spreadsheet)
-
-Can use this formula to handle single quotes
-=SUBSTITUTE(A4,"'","''")
-=CONCATENATE("values ('",SUBSTITUTE(A4,"'","''"),"');")
-
-
-Changing 'Add Game' form to insert to those tables (if value doesn't already exist)
+Update game last_played date when adding new session
+Sort games by last_played 
+Backup database
+Fix issue where Players selection isn't working when adding mupltiple sessions
 
 
 
-Make 'Add Developer' form
-Make 'Add Genre' form
-Make 'Add Theme' form
-
-Disable Add Game button and display message if any of Developer, Theme or Genre can't be found
+Schedule Python task to run on startup
