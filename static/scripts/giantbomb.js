@@ -68,7 +68,7 @@ function getGameInfoFromGB(gameId) {
             }
             $("#game-developers-names-to-insert").val(gameDeveloperNamesToInsert.join(', '));
             $("#game-developers-ids").val(gameDeveloperIds.join(', '));
-  
+
           } else {
             $("#game-developer").val("");
           }
@@ -144,6 +144,9 @@ function getGameInfoFromGB(gameId) {
         $("#game-release-date").val(data.results.original_release_date);
         $("#game-giantbomb-id").val(data.results.id);
         $("#game-giantbomb-img-url").val(data.results.image.small_url);
+
+        const metacriticLink = document.getElementById("metacritic-link");
+        metacriticLink.setAttribute("href", "https://www.metacritic.com/search/" + data.results.name + "/");
 
         const imageContainer = document.getElementById("game-thumbnail");
         imageContainer.src = data.results.image.small_url;

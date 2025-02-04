@@ -2,7 +2,7 @@ Update game last_played date when adding new session
 Sort games by last_played 
 Backup database
 Fix issue where Players selection isn't working when adding mupltiple sessions
-
+Better Icon (not transparent)
 
 
 Schedule Python task to run on startup
