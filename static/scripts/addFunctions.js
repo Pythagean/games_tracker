@@ -87,6 +87,12 @@ async function addGame() {
         }
     }
 
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure two digits
+    const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits
+    const formattedDate = `${year}-${month}-${day}`;
+
     var gamePublisher = document.getElementById('game-publisher').value;
     var gameReleaseDate = document.getElementById('game-release-date').value;
     var gameMetacriticScore = document.getElementById('game-metacritic-score').value;
@@ -118,7 +124,9 @@ async function addGame() {
         "controller_style": gameControllerStyle,
         "store": gameStore,
         "giantbomb_id": gameGiantbombId,
-        "giantbomb_img_url": gameGiantbombImgUrl
+        "giantbomb_img_url": gameGiantbombImgUrl,
+        "first_played": formattedDate,
+        "last_played": formattedDate
     });
 
     fetch('http://localhost:5000/games', {

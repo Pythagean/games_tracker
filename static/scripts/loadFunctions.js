@@ -11,8 +11,10 @@ function loadGames() {
         gameSelect.empty();
         gameSelect.append('<option value="">Select a game</option>');
 
+        const sortedData = data.sort((a, b) => new Date(b.last_played) - new Date(a.last_played));
+
         // Populate select with game options
-        data.forEach(game => {
+        sortedData.forEach(game => {
             gameSelect.append(new Option(game.title, game.game_id));
         });
 

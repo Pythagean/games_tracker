@@ -185,6 +185,8 @@ def insert_game():
         store = data['store']
         giantbomb_id = data['giantbomb_id']
         giantbomb_img_url = data['giantbomb_img_url']
+        first_played = data['first_played']
+        last_played = data['last_played']
 
         # genre = data['genre']
         theme = data['theme']
@@ -192,8 +194,8 @@ def insert_game():
 
         with conn.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO games (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING game_id",
-                (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url,)
+                "INSERT INTO games (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url, first_played, last_played) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING game_id",
+                (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url, first_played, last_played,)
             )
 
             # Get the inserted game ID
@@ -275,6 +277,17 @@ def insert_session():
                 "INSERT INTO session_player (session_id, player_id) VALUES (%s, %s)",
                 insert_values
             )
+
+            # Update last_played
+            cursor.execute(
+                """
+                UPDATE games
+                SET last_played = %s
+                WHERE (game_id = %s)
+                """,
+                (startDate, gameId,)
+            )
+            
             conn.commit()
 
         return jsonify({"status": "success", "message": "Session added"}), 200
