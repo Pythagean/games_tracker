@@ -1,3 +1,4 @@
 localhost
-postgres
-password
+user: postgres
+password: password
+port: 5432
