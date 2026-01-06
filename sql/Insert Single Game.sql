@@ -1,0 +1,3 @@
+INSERT INTO public.games(
+	title, platform, franchise, publisher, release_date, first_played, last_played, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url)
+	VALUES ('Donkey Kong Bananza', 'Nintendo Switch 2', 'Donkey Kong', 'Nintendo', '2025-07-17', '2026-01-04', '2026-01-07', 91, 'N/A', 'Controller', 'Nintendo (Physical)', null, 'https://www.giantbomb.com/a/uploads/scale_super/20/201266/3768118-4957055652-hero_.jpg');
