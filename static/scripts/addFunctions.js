@@ -99,8 +99,7 @@ async function addGame() {
     var gameMultiplayerStyle = document.getElementById('game-multiplayer-style').value;
     var gameControllerStyle = document.getElementById('game-controller-style').value;
     var gameStore = document.getElementById('game-store').value;
-    var gameGiantbombId = document.getElementById('game-giantbomb-id').value;
-    var gameGiantbombImgUrl = document.getElementById('game-giantbomb-img-url').value;
+    var gameImageUrl = document.getElementById('game-image-url').value;
 
     var responseMessage = document.getElementById('game-response-message');
 
@@ -123,8 +122,7 @@ async function addGame() {
         "multiplayer_style": gameMultiplayerStyle,
         "controller_style": gameControllerStyle,
         "store": gameStore,
-        "giantbomb_id": gameGiantbombId,
-        "giantbomb_img_url": gameGiantbombImgUrl,
+        "giantbomb_img_url": gameImageUrl,
         "first_played": formattedDate,
         "last_played": formattedDate
     });
@@ -216,6 +214,11 @@ function addSession() {
             // $('#session-players').val(null);
             responseMessage.innerHTML = 'Session added successfully!';
             responseMessage.style.color = 'green';
+            
+            // Clear message after 3 seconds
+            setTimeout(() => {
+                responseMessage.innerHTML = '';
+            }, 3000);
         } else {
             responseMessage.innerHTML = 'Error: ' + data.error;
             responseMessage.style.color = 'red';

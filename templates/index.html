@@ -14,7 +14,6 @@
     <script src="{{ url_for('static', filename='scripts/util.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/addFunctions.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/loadFunctions.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts/giantbomb.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/games.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/genres.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/themes.js') }}"></script>
@@ -129,30 +128,18 @@
       <div class="form-container" id="game-form">
         <div class="game-search-container">
           <div class="form-elements">
-            <label for="game-title"> Game Title <input type="text" id="game-title" placeholder="Enter a Title" />
+            <label for="game-title"> Game Title <input type="text" id="game-title" placeholder="Enter a Title" onchange="searchGameInDb(this.value)" />
             </label>
-            <button onclick="searchGameButtonClick()" class="add-button"> Search </button>
           </div>
-          <div class="game-image-container">
-            <img id="game-thumbnail"  src="static/placeholder.png" alt="Game Thumbnail" style="
-            width: auto;
-            height: auto;
-            max-height: 200px;
-            max-width: 200px;
-            display: block;
-            padding: 3px;
-          " />
-          </div>
-          
         </div>
         <div class="form-columns">
           <div class="column">
             <label for="game-platform">Platform <input type="text" id="game-platform" placeholder="Enter a Platform" />
             </label>
-            <label for="game-genres">Genre <input type="text" id="game-genres" placeholder="Enter a Genre" disabled="true" />
+            <label for="game-genres">Genre <input type="text" id="game-genres" placeholder="Enter a Genre" />
               <input hidden="true" id="game-genres-ids" value=""></input>
             </label>
-            <label for="game-developers">Developer <input type="text" id="game-developers" placeholder="Enter a Developer" disabled="true" />
+            <label for="game-developers">Developer <input type="text" id="game-developers" placeholder="Enter a Developer" />
               <input hidden="true" id="game-developers-ids" value=""></input>
               <input hidden="true" id="game-developers-names-to-insert" value=""></input>
             </label>
@@ -203,12 +190,12 @@
                 <option value="Other">Other</option>
               </select>
             </label>
-            <input hidden="true" id="game-giantbomb-id" value=""></input>
-            <input hidden="true" id="game-giantbomb-img-url" value=""></input>
+            <label for="game-image-url">Image URL <input type="text" id="game-image-url" placeholder="Enter an Image URL (optional)" />
+            </label>
             <p id="already-exists-text" style="display: none; margin-top: 40px; color: red"> (This game already exists in the database) </p>
           </div>
         </div>
-        <button onclick="addGame()" class="add-button" id="add-game-button" disabled="true"> Add Game </button>
+        <button onclick="addGame()" class="add-button" id="add-game-button"> Add Game </button>
         <div id="game-response-message" class="message"></div>
       </div>
       <!--------------->
@@ -236,15 +223,7 @@
         activeTab.classList.add("active");
       }
 
-      function searchGameButtonClick() {
-        // const alreadyContainsText = document.getElementById('already-exists-text');
-        // alreadyContainsText.style.display = 'none';
-        // const addGameButton = document.getElementById('add-game-button');
-        // addGameButton.disabled = false;
-        const gameTitle = $("#game-title").val();
-        searchForGame(gameTitle);
-        searchForGameInDb(gameTitle);
-      }
+
       $(".timepicker").timepicker({
         timeFormat: "h:mm p",
         interval: 60,

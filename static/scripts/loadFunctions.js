@@ -69,14 +69,16 @@ function loadGameDetails(gameId) {
             $('#session-platform').text(gameDetails.platform || '');
             $('#session-platform').val(gameDetails.platform || '');
 
-            // if (gameDetails.giantbomb_id > 0) getGameThumbnailFromGB(gameDetails.giantbomb_id);
-
-            if (gameDetails.giantbomb_img_url != "") {
+            // Display GiantBomb image if URL is available
+            if (gameDetails.giantbomb_img_url && gameDetails.giantbomb_img_url !== "") {
                 const imageContainer = document.getElementById("session-thumbnail");
                 imageContainer.src = gameDetails.giantbomb_img_url;
                 imageContainer.style.display = "block";
+            } else {
+                const imageContainer = document.getElementById("session-thumbnail");
+                imageContainer.src = "static/placeholder.png";
+                imageContainer.style.display = "block";
             }
-            
 
             toggleSwitchMode(gameDetails.platform);
         })

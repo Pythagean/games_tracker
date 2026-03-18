@@ -70,7 +70,7 @@ def games():
 def get_game_details(game_id):
     try:
         with conn.cursor() as cursor:
-            cursor.execute("SELECT title, platform, giantbomb_id, giantbomb_img_url FROM games WHERE game_id = %s;", (game_id,))
+            cursor.execute("SELECT title, platform, giantbomb_img_url FROM games WHERE game_id = %s;", (game_id,))
             game = cursor.fetchone()
 
             if game:
@@ -79,8 +79,7 @@ def get_game_details(game_id):
                     'game_id': game_id,
                     'title': game[0],
                     'platform': game[1],
-                    'giantbomb_id': game[2],
-                    'giantbomb_img_url': game[3]
+                    'giantbomb_img_url': game[2] if game[2] else ''
                 }
                 return jsonify(game_details), 200
             else:
@@ -183,8 +182,7 @@ def insert_game():
         multiplayer_style = data['multiplayer_style']
         controller_style = data['controller_style']
         store = data['store']
-        giantbomb_id = data['giantbomb_id']
-        giantbomb_img_url = data['giantbomb_img_url']
+        giantbomb_img_url = data.get('giantbomb_img_url', '')
         first_played = data['first_played']
         last_played = data['last_played']
 
@@ -194,8 +192,8 @@ def insert_game():
 
         with conn.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO games (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url, first_played, last_played) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING game_id",
-                (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_id, giantbomb_img_url, first_played, last_played,)
+                "INSERT INTO games (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_img_url, first_played, last_played) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING game_id",
+                (title, platform, franchise, publisher, release_date, metacritic_score, multiplayer_style, controller_style, store, giantbomb_img_url, first_played, last_played,)
             )
 
             # Get the inserted game ID
@@ -293,60 +291,6 @@ def insert_session():
         return jsonify({"status": "success", "message": "Session added"}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
-
-
-
-
-
-API_KEY = '695fc51cfe9223919cc00f148f4301a0f2caf9bf'
-SEARCH_BASE_URL = "https://www.giantbomb.com/api/search/"
-GAME_BASE_URL = "https://www.giantbomb.com/api/game"
-
-@app.route('/gb/search', methods=['GET'])
-def gb_search():
-    # Forward the GET request to the external API
-    try:
-        # Get query parameters from the request
-        params = request.args.to_dict()
-        params['api_key'] = API_KEY
-
-        headers = {
-            'User-Agent': 'Pythagean'
-        }
-        
-        # Make the request to the external API
-        response = requests.get(f"{SEARCH_BASE_URL}", params=params, headers=headers)  # Modify the path as needed
-
-        # Check if the response is successful
-        if response.status_code == 200:
-            return jsonify(response.json())  # Return the response from the external API
-        else:
-            return jsonify({"error": "Failed to fetch data from external API"}), response.status_code
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/gb/game/<int:gb_game_id>', methods=['GET'])
-def gb_details(gb_game_id):
-    # Forward the GET request to the external API
-    try:
-        # Get query parameters from the request
-        params = request.args.to_dict()
-        params['api_key'] = API_KEY
-
-        headers = {
-            'User-Agent': 'Pythagean'
-        }
-        
-        # Make the request to the external API
-        response = requests.get(f"{GAME_BASE_URL}/{gb_game_id}", params=params, headers=headers)  # Modify the path as needed
-
-        # Check if the response is successful
-        if response.status_code == 200:
-            return jsonify(response.json())  # Return the response from the external API
-        else:
-            return jsonify({"error": "Failed to fetch data from external API"}), response.status_code
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 
 
